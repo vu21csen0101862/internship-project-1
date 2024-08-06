@@ -1,0 +1,98 @@
+import java.util.Scanner;
+
+public class IncomeTaxCalculator {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Input: Annual income
+        System.out.print("Enter your annual income: $");
+        double annualIncome = scanner.nextDouble();
+        
+        // Input: Deductions
+        System.out.print("Enter total deductions: $");
+        double deductions = scanner.nextDouble();
+        
+        // Input: Filing status (e.g., single, married)
+        System.out.print("Enter your filing status (single/married): ");
+        String filingStatus = scanner.next().toLowerCase();
+        
+        // Input: Tax credits
+        System.out.print("Enter total tax credits: $");
+        double taxCredits = scanner.nextDouble();
+        
+        // Calculate taxable income
+        double taxableIncome = annualIncome - deductions;
+        
+        // Calculate tax based on filing status and tax slabs
+        double taxLiability = calculateTaxLiability(taxableIncome, filingStatus);
+        
+        // Apply tax credits
+        taxLiability -= taxCredits;
+        
+        // Ensure tax liability is not negative
+        if (taxLiability < 0) {
+            taxLiability = 0;
+        }
+        
+        // Output the result
+        System.out.printf("Your estimated tax liability is: $%.2f\n", taxLiability);
+        
+        scanner.close();
+    }
+
+    private static double calculateTaxLiability(double taxableIncome, String filingStatus) {
+        double taxLiability = 0;
+        
+        // Define tax slabs for single and married filing statuses
+        if (filingStatus.equals("single")) {
+            taxLiability = calculateSingleFilingTax(taxableIncome);
+        } else if (filingStatus.equals("married")) {
+            taxLiability = calculateMarriedFilingTax(taxableIncome);
+        } else {
+            System.out.println("Invalid filing status. Please enter 'single' or 'married'.");
+        }
+        
+        return taxLiability;
+    }
+    
+    private static double calculateSingleFilingTax(double taxableIncome) {
+        double tax = 0;
+        if (taxableIncome <= 9875) {
+            tax = taxableIncome * 0.10;
+        } else if (taxableIncome <= 40125) {
+            tax = 987.50 + (taxableIncome - 9875) * 0.12;
+        } else if (taxableIncome <= 85525) {
+            tax = 4617.50 + (taxableIncome - 40125) * 0.22;
+        } else if (taxableIncome <= 163300) {
+            tax = 14605.50 + (taxableIncome - 85525) * 0.24;
+        } else if (taxableIncome <= 207350) {
+            tax = 33271.50 + (taxableIncome - 163300) * 0.32;
+        } else if (taxableIncome <= 518400) {
+            tax = 47367.50 + (taxableIncome - 207350) * 0.35;
+        } else {
+            tax = 156235 + (taxableIncome - 518400) * 0.37;
+        }
+        return tax;
+    }
+
+    private static double calculateMarriedFilingTax(double taxableIncome) {
+        double tax = 0;
+        if (taxableIncome <= 19750) {
+            tax = taxableIncome * 0.10;
+        } else if (taxableIncome <= 80250) {
+            tax = 1975 + (taxableIncome - 19750) * 0.12;
+        } else if (taxableIncome <= 171050) {
+            tax = 9297.50 + (taxableIncome - 80250) * 0.22;
+        } else if (taxableIncome <= 326600) {
+            tax = 29337.50 + (taxableIncome - 171050) * 0.24;
+        } else if (taxableIncome <= 414700) {
+            tax = 66567.50 + (taxableIncome - 326600) * 0.32;
+        } else if (taxableIncome <= 622050) {
+            tax = 94735.50 + (taxableIncome - 414700) * 0.35;
+        } else {
+            tax = 167307.50 + (taxableIncome - 622050) * 0.37;
+        }
+        return tax;
+    }
+}

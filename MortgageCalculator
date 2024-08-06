@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class MortgageCalculator {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Input: Loan amount (Principal)
+        System.out.print("Enter the loan amount (Principal): ");
+        double loanAmount = scanner.nextDouble();
+        
+        // Input: Annual interest rate (in percentage)
+        System.out.print("Enter the annual interest rate (in %): ");
+        double annualInterestRate = scanner.nextDouble();
+        
+        // Input: Loan term in years
+        System.out.print("Enter the loan term (in years): ");
+        int loanTermYears = scanner.nextInt();
+        
+        // Calculate the monthly interest rate
+        double monthlyInterestRate = annualInterestRate / 100 / 12;
+        
+        // Calculate the total number of payments (in months)
+        int numberOfPayments = loanTermYears * 12;
+        
+        // Calculate the monthly mortgage payment using the formula
+        double monthlyPayment = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
+                                (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+        
+        // Output the result
+        System.out.printf("Your monthly mortgage payment is: $%.2f\n", monthlyPayment);
+        
+        scanner.close();
+    }
+}

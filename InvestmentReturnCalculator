@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class InvestmentReturnCalculator {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Input: Initial investment amount
+        System.out.print("Enter the initial investment amount: ");
+        double initialInvestment = scanner.nextDouble();
+        
+        // Input: Expected annual rate of return (in percentage)
+        System.out.print("Enter the expected annual rate of return (in %): ");
+        double annualRateOfReturn = scanner.nextDouble();
+        
+        // Input: Investment time horizon (in years)
+        System.out.print("Enter the investment time horizon (in years): ");
+        int investmentHorizon = scanner.nextInt();
+        
+        // Convert the annual rate of return to a decimal
+        double rateOfReturn = annualRateOfReturn / 100;
+        
+        // Calculate the future value of the investment using the formula
+        double futureValue = initialInvestment * Math.pow(1 + rateOfReturn, investmentHorizon);
+        
+        // Output the result
+        System.out.printf("The future value of the investment is: $%.2f\n", futureValue);
+        
+        scanner.close();
+    }
+}

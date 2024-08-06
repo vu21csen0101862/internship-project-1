@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class SavingsGoalCalculator {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Input: Savings goal amount
+        System.out.print("Enter your savings goal amount: ");
+        double savingsGoal = scanner.nextDouble();
+        
+        // Input: Time frame in years
+        System.out.print("Enter the time frame to reach the goal (in years): ");
+        int timeFrameYears = scanner.nextInt();
+        
+        // Input: Expected annual rate of return (in percentage)
+        System.out.print("Enter the expected annual rate of return (in %): ");
+        double annualRateOfReturn = scanner.nextDouble();
+        
+        // Convert the annual rate of return to a monthly rate of return
+        double monthlyRateOfReturn = annualRateOfReturn / 100 / 12;
+        
+        // Calculate the total number of monthly payments
+        int numberOfMonths = timeFrameYears * 12;
+        
+        // Calculate the monthly savings needed using the future value of annuity formula
+        double monthlySavings = (savingsGoal * monthlyRateOfReturn) /
+                                (Math.pow(1 + monthlyRateOfReturn, numberOfMonths) - 1);
+        
+        // Output the result
+        System.out.printf("You need to save $%.2f per month to reach your goal.\n", monthlySavings);
+        
+        scanner.close();
+    }
+}
